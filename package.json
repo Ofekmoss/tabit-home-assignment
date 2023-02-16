@@ -1,0 +1,28 @@
+{
+  "name": "tabit-home-assignment",
+  "version": "1.0.0",
+  "description": "Tabit home assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ofekmoss/tabit-home-assignment.git"
+  },
+  "author": "Ofek Mossinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ofekmoss/tabit-home-assignment/issues"
+  },
+  "homepage": "https://github.com/Ofekmoss/tabit-home-assignment#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "mongoose": "^6.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
