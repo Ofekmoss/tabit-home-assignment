@@ -1,16 +1,18 @@
 import express from 'express';
 import * as resturantsController from '../controllers/resturants.controllers.js'
+import { getRoleByUserId } from '../middleware/getRoleByUserId.js';
+import { isAdmin } from '../middleware/isAdmin.js';
 
 const resturantsRouter = express.Router();
 
-resturantsRouter.get('/', resturantsController.getResturants);
+resturantsRouter.get('/', getRoleByUserId,resturantsController.getResturants);
 
-resturantsRouter.post('/', resturantsController.createResturant);
+resturantsRouter.post('/', isAdmin,resturantsController.createResturant);
 
-resturantsRouter.put('/:resturantId', resturantsController.updateResturant);
+resturantsRouter.put('/:resturantId', getRoleByUserId, resturantsController.updateResturant);
 
-resturantsRouter.delete('/:resturantId', resturantsController.deactivateResturant);
+resturantsRouter.delete('/:resturantId', isAdmin,resturantsController.deactivateResturant);
 
-resturantsRouter.get('/:resturantId', resturantsController.getResturantById);
+resturantsRouter.get('/:resturantId', getRoleByUserId, resturantsController.getResturantById);
 
 export default resturantsRouter;

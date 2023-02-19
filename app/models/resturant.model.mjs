@@ -14,7 +14,7 @@ const resturantSchema=
         },
         country: {
             type: String,
-            required: true
+            required: false
         },
         active: {
             type: Boolean,

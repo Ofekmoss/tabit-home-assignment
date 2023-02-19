@@ -7,7 +7,7 @@ const userSchema=
         name: {
             type: String,
             required: true,
-            unique: true
+            // unique: true
         },
         role: {
             type: String,
@@ -23,8 +23,7 @@ const userSchema=
         resturant: {
             type: Schema.Types.ObjectId,
             ref: 'Resturant',
-            // type: String,
-            required: true
+            required: false
         }
     })
 

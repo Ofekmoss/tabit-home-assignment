@@ -30,7 +30,7 @@ handleError(app);
 
 mongoose.set('strictQuery', true);
 mongoose.connect(
-    "mongodb+srv://ofekmoss:Of5851133@cluster0.rxenh4j.mongodb.net/test"
+    process.env.MONGO_URL
 ).then(result => {
     const port = process.env.PORT || 8080;
     app.listen(port, () => {

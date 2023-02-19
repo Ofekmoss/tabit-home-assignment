@@ -1,3 +1,4 @@
+import { tabitConstants } from '../constants/tabit.strings.js';
 import NotFoundError from '../entities/error/notFound.error.js';
 import Resturant from '../models/resturant.model.mjs';
 import User from '../models/user.model.mjs';
@@ -15,10 +16,10 @@ export async function getUsers(req, res, next) {
 export async function createUser(req, res, next) {
         try {
             const resturant = await Resturant.findById(req.body.resturant);
-            if (resturant) {
+            if (resturant || req.body.role === tabitConstants.ADMIN) {
                 await User.create({...req.body});
             } else {
-                const error = new NotFoundError({ message: 'The user with this id could not be found'});
+                const error = new NotFoundError({ message: 'The Resturant with this id could not be found'});
                 throw error;
             }
             sendSuccessResponse({  }, res, 201);

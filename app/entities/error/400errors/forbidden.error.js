@@ -1,6 +1,6 @@
-import TabitError from './tabit.error.js';
+import TabitError from '../tabit.error.js';
 
-class NotFoundError extends TabitError {
+class ForbiddenError extends TabitError {
 
     /**
      * @param {object} details
@@ -11,4 +11,4 @@ class NotFoundError extends TabitError {
     }
 }
 
-export default NotFoundError;
+export default ForbiddenError;
