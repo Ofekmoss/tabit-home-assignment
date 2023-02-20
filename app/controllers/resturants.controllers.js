@@ -11,7 +11,12 @@ export async function getResturants(req, res, next) {
                 resturants = await Resturant.find();
             } else {
                 const userResturant = await Resturant.findById(req.user.resturant);
-                resturants = await Resturant.find({active: true, chain: (userResturant.chain) ? userResturant.chain : userResturant.name});
+                resturants = await Resturant.find({
+                    active: true, 
+                    $or: [
+                        {name: (userResturant.chain) ? userResturant.chain : userResturant.name},
+                        {chain: (userResturant.chain) ? userResturant.chain : userResturant.name}
+                    ]});
             }
             sendSuccessResponse({ resturants }, res, 200);
         } catch (err) {
