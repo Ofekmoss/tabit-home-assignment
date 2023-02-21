@@ -1,9 +1,9 @@
 import { tabitConstants } from "../constants/tabit.strings.js";
 import ForbiddenError from "../errors/forbidden.error.js";
 
-export const isAdmin = async (req, res, next) => {
+export const isManager = async (req, res, next) => {
     try {
-        if (req.role !== tabitConstants.ADMIN) {
+        if (req.role !== tabitConstants.MANAGER && req.role !== tabitConstants.ADMIN) {
             throw new ForbiddenError({message:'No Permission'});
         }
         next();

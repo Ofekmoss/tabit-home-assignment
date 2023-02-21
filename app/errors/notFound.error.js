@@ -1,3 +1,4 @@
+import { StatusCodes } from 'http-status-codes';
 import TabitError from './tabit.error.js';
 
 class NotFoundError extends TabitError {
@@ -8,6 +9,7 @@ class NotFoundError extends TabitError {
      */
     constructor({ message }) {
         super(message);
+        this.code = StatusCodes.NOT_FOUND;
     }
 }
 

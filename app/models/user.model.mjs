@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { tabitConstants } from "../constants/tabit.strings.js";
+
 const {Schema} = mongoose;
 
 const userSchema= 
@@ -7,7 +8,6 @@ const userSchema=
         name: {
             type: String,
             required: true,
-            // unique: true
         },
         role: {
             type: String,

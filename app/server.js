@@ -1,20 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import cors from "cors";
 import "./utils/envFile.util.js"; // Load data from the .env file
-import handleError from "./middleware/errorHandler.js";
-import NotFoundError from "./entities/error/notFound.error.js";
+import NotFoundError from "./errors/notFound.error.js";
 import usersRouter from './routes/users.routes.js';
 import mongoose from 'mongoose';
 import resturantsRouter from './routes/resturants.routes.js';
-
+import TabitError from './errors/tabit.error.js';
+import { StatusCodes } from 'http-status-codes';
+import { sendErrorResponse } from './utils/responseFormatter.utils.js';
 
 const app = express();
-
-const corsOptions = {
-    credentials: true,
-};
-app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,7 +21,10 @@ app.use((req, res, next) => {
     next(new NotFoundError({ message: "Not Found" }));
 });
 
-handleError(app);
+app.use((error, request, response, next) => {
+    const errorCode = (error instanceof TabitError) ? error.code : StatusCodes.INTERNAL_SERVER_ERROR;
+    return sendErrorResponse(error, errorCode, response);
+});
 
 mongoose.set('strictQuery', true);
 mongoose.connect(

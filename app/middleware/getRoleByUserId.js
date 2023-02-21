@@ -1,18 +1,16 @@
-import UnauthorizedError from "../entities/error/400errors/unauthorized.error.js";
-import NotFoundError from "../entities/error/notFound.error.js";
+import ForbiddenError from "../errors/forbidden.error.js";
+import UnauthorizedError from "../errors/unauthorized.error.js";
 import User from "../models/user.model.mjs";
 
 export const getRoleByUserId = async (req, res, next) => {
     try {
-        const userIdHeader = req.get('UserId');
-        if (!userIdHeader) {
-            const error= new UnauthorizedError({message:'Not Authenticated.'});
-            throw error;
+        const userId = req.get('UserId');
+        if (!userId) {
+            throw new UnauthorizedError({message:'Missing user id'});;
         }
-        const user = await User.findById(userIdHeader);
+        const user = await User.findById(userId);
         if (!user) {
-            const error = new NotFoundError({ message: 'The user with this id could not be found' });
-            throw error;
+            throw new ForbiddenError({ message: `User with id:${userId} could not be found` });;
         }
         req.user = user;
         req.role = user.role;

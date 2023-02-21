@@ -1,4 +1,5 @@
-import TabitError from '../tabit.error.js';
+import TabitError from './tabit.error.js';
+import { StatusCodes } from 'http-status-codes';
 
 class UnauthorizedError extends TabitError {
 
@@ -8,6 +9,7 @@ class UnauthorizedError extends TabitError {
      */
     constructor({ message }) {
         super( message );
+        this.code = StatusCodes.UNAUTHORIZED;
     }
 }
 

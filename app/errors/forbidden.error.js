@@ -1,4 +1,5 @@
-import TabitError from '../tabit.error.js';
+import { StatusCodes } from 'http-status-codes';
+import TabitError from './tabit.error.js';
 
 class ForbiddenError extends TabitError {
 
@@ -8,6 +9,7 @@ class ForbiddenError extends TabitError {
      */
     constructor({ message }) {
         super(message);
+        this.code = StatusCodes.FORBIDDEN;
     }
 }
 

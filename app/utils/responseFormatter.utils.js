@@ -1,12 +1,12 @@
-import { OK } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { isProdEnv } from './envData.util.js';
 
-export const sendSuccessResponse = (data, response) => {
+export const sendSuccessResponse = (data, response, code = StatusCodes.OK) => {
     const body = {
         success: true,
         ...data
     };
-    response.status(OK).json(body);
+    response.status(code).json(body);
 };
 
 export const sendErrorResponse = (error, code, response) => {
