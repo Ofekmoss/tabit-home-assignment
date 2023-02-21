@@ -17,21 +17,25 @@ function removeArrayDuplicates(array) {
 
 async function getAllowedResturants(user) {
     try {
-        const sameUsers = await User.find({name: user.name});
         let resturants = [];
-        for (const user of sameUsers) {
-            const userResturant = await Resturant.findById(user.resturant);            
-            const resturantsList = await Resturant.find({
-                active: true, 
-                $or: [
-                    {name: (userResturant.chain) ? userResturant.chain : userResturant.name},
-                    {chain: (userResturant.chain) ? userResturant.chain : userResturant.name}
-                ]
-            }, "-__v");
-            
-            resturants.push(...resturantsList);
-        };
+        if (user.role === tabitConstants.ADMIN) {
+            resturants = await Resturant.find({}, "-__v");
+        } else {
+            const sameUsers = await User.find({name: user.name});
 
+            for (const user of sameUsers) {
+                const userResturant = await Resturant.findById(user.resturant);            
+                const resturantsList = await Resturant.find({
+                    active: true, 
+                    $or: [
+                        {name: (userResturant.chain) ? userResturant.chain : userResturant.name},
+                        {chain: (userResturant.chain) ? userResturant.chain : userResturant.name}
+                    ]
+                }, "-__v");
+                
+                resturants.push(...resturantsList);
+            };
+        }
         return removeArrayDuplicates(resturants);
     } catch (err) {
         throw err;
